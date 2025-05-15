@@ -26,7 +26,12 @@ func getCommands() map[string]cliCommand {
 		"map": {
 			name:        "map",
 			description: "Lists locations, with each consecutive call to map giving more locations",
-			callback:    commandMap,
+			callback:    commandMapF,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Lists the previous locations, with each consecutive call to mapb going back further",
+			callback:    commandMapB,
 		},
 	}
 }
@@ -46,17 +51,5 @@ func commandHelp(cfg *config) error {
 		fmt.Printf("%v: %v\n", cmd.name, cmd.description)
 	}
 
-	return nil
-}
-
-func commandMap(cfg *config) error {
-	locationsJson, err := cfg.client.GetLocations(cfg.next)
-	if err != nil {
-		return err
-	}
-
-	for _, location := range locationsJson.Results {
-		fmt.Println(location.Name)
-	}
 	return nil
 }
