@@ -20,8 +20,7 @@ func commandMapF(cfg *config) error {
 
 func commandMapB(cfg *config) error {
 	if cfg.prev == nil {
-		fmt.Println("You're on the first page!")
-		return nil
+		return fmt.Errorf("You're on the first page!")
 	}
 	locationsJson, err := cfg.client.GetLocations(cfg.prev)
 	if err != nil {
