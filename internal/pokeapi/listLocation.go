@@ -3,6 +3,7 @@ package pokeapi
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -10,6 +11,16 @@ func (c *PokeClient) GetLocations(url *string) (LocationsJson, error) {
 	endpoint := baseApi + "location-area/"
 	if url != nil {
 		endpoint = *url
+	}
+	data, ok := c.cache.Get(endpoint)
+	if ok {
+		var jsonData LocationsJson
+		err := json.Unmarshal(data, &jsonData)
+		if err != nil {
+			return LocationsJson{}, err
+		}
+
+		return jsonData, nil
 	}
 
 	req, err := http.NewRequest("GET", endpoint, nil)
@@ -28,10 +39,16 @@ func (c *PokeClient) GetLocations(url *string) (LocationsJson, error) {
 	}
 
 	var jsonData LocationsJson
-	decoder := json.NewDecoder(res.Body)
-	err = decoder.Decode(&jsonData)
+	resBody, err := io.ReadAll(res.Body)
 	if err != nil {
 		return LocationsJson{}, err
 	}
+
+	c.cache.Add(endpoint, resBody)
+	err = json.Unmarshal(resBody, &jsonData)
+	if err != nil {
+		return LocationsJson{}, err
+	}
+
 	return jsonData, nil
 }
