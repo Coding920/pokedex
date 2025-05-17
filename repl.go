@@ -9,9 +9,15 @@ import (
 )
 
 type config struct {
-	client *pokeapi.PokeClient
-	next   *string
-	prev   *string
+	client  *pokeapi.PokeClient
+	next    *string
+	prev    *string
+	pokemon map[string]Pokemon
+}
+
+type Pokemon struct {
+	name           string
+	baseExperience int
 }
 
 func startRepl(cfg config) {

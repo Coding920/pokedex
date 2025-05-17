@@ -9,7 +9,7 @@ func catch(cfg *config, params []string) error {
 	if len(params) < 2 {
 		return fmt.Errorf("Which pokemon are you trying to catch?")
 	}
-	pokeData, err := cfg.client.CatchPokemon(params[1])
+	pokeData, err := cfg.client.GetPokemon(params[1])
 	if err != nil {
 		return err
 	}
@@ -21,7 +21,10 @@ func catch(cfg *config, params []string) error {
 	}
 
 	fmt.Printf("%v was caught!\n", params[1])
-	// Todo add pokemon to user's pokedex
+	cfg.pokemon[params[1]] = Pokemon{
+		name:           pokeData.Name,
+		baseExperience: pokeData.BaseExperience,
+	}
 
 	return nil
 }

@@ -9,7 +9,7 @@ import (
 
 type PokemonData struct {
 	id                     int
-	name                   string
+	Name                   string
 	BaseExperience         int `json:"base_experience"`
 	height                 int
 	isDefault              bool
@@ -287,7 +287,7 @@ type PokemonData struct {
 	}
 }
 
-func (c *PokeClient) CatchPokemon(pokemonName string) (PokemonData, error) {
+func (c *PokeClient) GetPokemon(pokemonName string) (PokemonData, error) {
 	endpoint := baseApi + "pokemon/" + pokemonName
 
 	if data, ok := c.cache.Get(endpoint); ok {
