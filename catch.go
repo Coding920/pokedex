@@ -21,7 +21,7 @@ func catch(cfg *config, params []string) error {
 	}
 
 	fmt.Printf("%v was caught!\n", params[1])
-	cfg.pokemon[params[1]] = pokeData
+	cfg.pokemon[params[1]] = &pokeData
 
 	return nil
 }

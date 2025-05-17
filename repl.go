@@ -12,7 +12,7 @@ type config struct {
 	client  *pokeapi.PokeClient
 	next    *string
 	prev    *string
-	pokemon map[string]pokeapi.PokemonData
+	pokemon map[string]*pokeapi.PokemonData
 }
 
 func startRepl(cfg config) {

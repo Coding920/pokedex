@@ -246,20 +246,20 @@ type PokemonData struct {
 		latest string
 		legacy string
 	}
-	stats []struct {
-		baseStat int
+	Stats []struct {
+		BaseStat int `json:"base_stat"`
 		effort   int
-		stat     struct {
-			name string
+		Stat     struct {
+			Name string
 			url  string
 		}
 	}
-	types []struct {
-		slot    int
-		theType struct {
-			name string
+	Types []struct {
+		slot      int
+		InnerType struct {
+			Name string
 			url  string
-		}
+		} `json:"type"`
 	}
 	pastTypes []struct {
 		generation struct {
