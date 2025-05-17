@@ -14,17 +14,14 @@ func catch(cfg *config, params []string) error {
 		return err
 	}
 
-	fmt.Printf("Throwing a Pokeball at %v\n", params[1])
-	if rand.Intn(600) < pokeData.BaseExperience { // From searching, 600 should be a bit over the max of 563
+	fmt.Printf("Throwing a Pokeball at %v...\n", params[1])
+	if rand.Intn(pokeData.BaseExperience+100) < pokeData.BaseExperience {
 		fmt.Printf("%v escaped\n", params[1])
 		return nil
 	}
 
 	fmt.Printf("%v was caught!\n", params[1])
-	cfg.pokemon[params[1]] = Pokemon{
-		name:           pokeData.Name,
-		baseExperience: pokeData.BaseExperience,
-	}
+	cfg.pokemon[params[1]] = pokeData
 
 	return nil
 }

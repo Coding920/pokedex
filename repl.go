@@ -12,12 +12,7 @@ type config struct {
 	client  *pokeapi.PokeClient
 	next    *string
 	prev    *string
-	pokemon map[string]Pokemon
-}
-
-type Pokemon struct {
-	name           string
-	baseExperience int
+	pokemon map[string]pokeapi.PokemonData
 }
 
 func startRepl(cfg config) {
@@ -26,6 +21,9 @@ func startRepl(cfg config) {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
 		inputWords := cleanInput(scanner.Text())
+		if len(inputWords) < 1 {
+			continue
+		}
 		userCmd := inputWords[0]
 
 		cmd, ok := getCommands()[userCmd]

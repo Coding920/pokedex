@@ -11,10 +11,10 @@ type PokemonData struct {
 	id                     int
 	Name                   string
 	BaseExperience         int `json:"base_experience"`
-	height                 int
+	Height                 int
 	isDefault              bool
 	order                  int
-	weight                 int
+	Weight                 int
 	locationAreaEncounters string
 	abilities              []struct {
 		isHidden bool
