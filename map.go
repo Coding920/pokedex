@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandMapF(cfg *config) error {
+func commandMapF(cfg *config, params []string) error {
 	locationsJson, err := cfg.client.GetLocations(cfg.next)
 	if err != nil {
 		return err
@@ -18,7 +18,7 @@ func commandMapF(cfg *config) error {
 	return nil
 }
 
-func commandMapB(cfg *config) error {
+func commandMapB(cfg *config, params []string) error {
 	if cfg.prev == nil {
 		return fmt.Errorf("You're on the first page!")
 	}

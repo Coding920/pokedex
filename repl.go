@@ -19,12 +19,12 @@ func startRepl(cfg config) {
 	for {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
-		cleanedInput := cleanInput(scanner.Text())
-		userCmd := cleanedInput[0]
+		inputWords := cleanInput(scanner.Text())
+		userCmd := inputWords[0]
 
 		cmd, ok := getCommands()[userCmd]
 		if ok {
-			err := cmd.callback(&cfg)
+			err := cmd.callback(&cfg, inputWords)
 			if err != nil {
 				fmt.Println(err)
 			}

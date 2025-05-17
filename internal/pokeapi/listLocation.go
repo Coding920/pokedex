@@ -7,6 +7,16 @@ import (
 	"net/http"
 )
 
+type LocationsJson struct {
+	Count    int     `json:"count"`
+	Next     *string `json:"next"`
+	Previous *string `json:"previous"`
+	Results  []struct {
+		Name string `json:"name"`
+		Url  string `json:"url"`
+	} `json:"results"`
+}
+
 func (c *PokeClient) GetLocations(url *string) (LocationsJson, error) {
 	endpoint := baseApi + "location-area/"
 	if url != nil {

@@ -35,11 +35,11 @@ type ExploreJson struct {
 			url  string
 		}
 	}
-	pokemonEncounters []struct {
-		pokemon struct {
-			name string
+	PokemonEncounters []struct {
+		Pokemon struct {
+			Name string `json:"name"`
 			url  string
-		}
+		} `json:"pokemon"`
 		versionDetails []struct {
 			version struct {
 				name string
@@ -57,10 +57,10 @@ type ExploreJson struct {
 				}
 			}
 		}
-	}
+	} `json:"pokemon_encounters"`
 }
 
-func (c *PokeClient) exploreLocation(location string) (ExploreJson, error) {
+func (c *PokeClient) ExploreLocation(location string) (ExploreJson, error) {
 	endpoint := baseApi + "location-area/" + location
 
 	if data, ok := c.cache.Get(endpoint); ok {
@@ -95,6 +95,8 @@ func (c *PokeClient) exploreLocation(location string) (ExploreJson, error) {
 	var jsonData ExploreJson
 	err = json.Unmarshal(data, &jsonData)
 	if err != nil {
+		fmt.Println("Err unmarshalling")
+		fmt.Println(err)
 		return ExploreJson{}, err
 	}
 
